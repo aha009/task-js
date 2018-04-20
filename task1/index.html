@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    div {
+        background: yellowgreen;
+        padding: 15%;
+        margin: 1.5%;
+        float: left;
+        border-radius: 10%;
+    }
+    .btn {
+        width: 100%;
+        text-align: center;
+        border: 1px solid yellowgreen;
+        padding: 3% 0;
+        margin: 3px 0;
+    }
+    .btn-normal {
+        background-color: yellowgreen;
+        color: #ffffff;
+    }
+    .btn-normal:active {
+        background-color: #79a02a;
+    }
+    .btn-reverse:active {
+        background-color: #eee;
+    }
+    .btn-reverse {
+        background-color: #ffffff;
+        color: yellowgreen;
+    }
+    button:focus {
+        outline: none;
+    }
+</style>
+<body>
+        <!-- http://javascript.ruanyifeng.com/dom/node.html  DOM
+            http://javascript.ruanyifeng.com/dom/event-type.html  EVENT
+        -->
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <button class="btn btn-normal">开始闪</button>
+    <button class="btn btn-reverse">结束闪</button>
+    <script>
+        var boxes = document.getElementsByTagName('div');
+        var btnNormal = document.getElementsByClassName('btn-normal')[0];
+        var btnReverse = document.getElementsByClassName('btn-reverse')[0];
+        var num = [];        
+
+
+        function randomHexColor() { //随机生成十六进制颜色
+            return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
+        }
+        function reset () { //重置九宫格背景色
+            for(i=0;i<boxes.length;i++){
+                boxes[i].style.background = 'yellowgreen';
+            }
+        }
+        function gotThreeBlock() { //变三个色
+            for(i=0;i<=2;i++) {
+                var tmp = Math.floor(Math.random() * boxes.length);
+
+                var index = num.indexOf(tmp);
+
+                if(index < 0){
+                    // num.push(tmp);
+                    num[i] = tmp;
+                    boxes[tmp].style.background = randomHexColor();
+                }
+            }
+            for(k=0;k<num.length;k++){
+                
+            }
+            for(j=0;j<boxes.length;j++){
+                if(num.indexOf(j) < 0){
+                    boxes[j].style.background = 'yellowgreen';
+                }
+            }
+
+        }
+
+
+
+        btnNormal.addEventListener('click',function(){
+            n = setInterval("gotThreeBlock()",1000);
+        });
+        btnReverse.addEventListener('click',function(){
+            clearInterval(n);
+            reset();
+        });
+    </script>
+</body>
+</html>
