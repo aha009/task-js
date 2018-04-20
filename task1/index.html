@@ -58,17 +58,20 @@
         var boxes = document.getElementsByTagName('div');
         var btnNormal = document.getElementsByClassName('btn-normal')[0];
         var btnReverse = document.getElementsByClassName('btn-reverse')[0];
-        var num = [];        
+        var num = [];  
+        var timer;      
 
 
         function randomHexColor() { //随机生成十六进制颜色
             return '#' + ('00000' + (Math.random() * 0x1000000 << 0).toString(16)).substr(-6);
         }
+        
         function reset () { //重置九宫格背景色
             for(i=0;i<boxes.length;i++){
                 boxes[i].style.background = 'yellowgreen';
             }
         }
+        
         function gotThreeBlock() { //变三个色
             for(i=0;i<=2;i++) {
                 var tmp = Math.floor(Math.random() * boxes.length);
@@ -76,7 +79,6 @@
                 var index = num.indexOf(tmp);
 
                 if(index < 0){
-                    // num.push(tmp);
                     num[i] = tmp;
                     boxes[tmp].style.background = randomHexColor();
                 }
@@ -95,10 +97,11 @@
 
 
         btnNormal.addEventListener('click',function(){
-            n = setInterval("gotThreeBlock()",1000);
+            clearInterval(timer);
+            timer = setInterval("gotThreeBlock()",700);
         });
         btnReverse.addEventListener('click',function(){
-            clearInterval(n);
+            clearInterval(timer);
             reset();
         });
     </script>
